@@ -25,9 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //findViewById of the layout elements
         tableLayout = findViewById(R.id.viewpager_tabs)
         recycler_view = findViewById(R.id.recycler_view)
         searchText = findViewById(R.id.searchText)
+
+
+        //implemented addTextChangedListener to the search text to do automatic search from the Recycleview data when user type anything
 
         searchText.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -46,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+
+        //Creating dummy data for Recycleview...
 
         val itemsList = arrayListOf(
             Item(R.drawable.image1, "Label 1"),
@@ -84,21 +90,30 @@ class MainActivity : AppCompatActivity() {
             // Add more items as needed
         )
 
+        //End og creating dummy data...........
+
+
+        //setting the adapter to the viewpager to show the images......
         viewPager = findViewById(R.id.viewpager_images)
         val images = listOf(R.drawable.image1, R.drawable.image2, R.drawable.image3)
         val adapter = ImageAdapter(images)
         viewPager.adapter = adapter
 
+        //attach the tablayout dot with the viewpager
         TabLayoutMediator(tableLayout, viewPager) { tab, position ->
             //tab.text = adapter.getPageTitle(position)
         }.attach()
 
+
+        //setting the layoutmanager and adapter to the Recycleview
         val layoutManager = LinearLayoutManager(this)
         recycler_view.layoutManager = layoutManager
 
         val listAdapter = ItemAdapter(itemsList)
         recycler_view.adapter = listAdapter
 
+
+        //add registerOnPageChangeCallback to the viewpager to refresh the Recycleview data when user swipe the viewpager content
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -125,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    //creating method to search and show it to the list
     fun searchFromList(input : String){
         searchArray.clear()
         selectedArray.forEach {
