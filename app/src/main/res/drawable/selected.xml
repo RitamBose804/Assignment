@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="3dp">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="ring"
+            android:useLevel="false">
+            <solid android:color="@color/SearchBar_Background" />
+            <size
+                android:width="@dimen/t_padding"
+                android:height="@dimen/t_padding" />
+        </shape>
+    </item>
+    <item
+        android:bottom="@dimen/i_padding"
+        android:left="@dimen/i_padding"
+        android:right="@dimen/i_padding"
+        android:top="@dimen/i_padding">
+        <shape
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thickness="6dp"
+            android:useLevel="false">
+
+            <solid android:color="@color/SearchBar_Background" />
+        </shape>
+    </item>
+</layer-list>
