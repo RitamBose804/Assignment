@@ -7,9 +7,12 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TableLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var recycler_view: RecyclerView
     lateinit var viewPager: ViewPager2
     lateinit var searchText: EditText
+    lateinit var fab: FloatingActionButton
     var selectedArray = mutableListOf<Item>()
     var searchArray = mutableListOf<Item>()
     var selectedPosition : Int = 0
@@ -29,7 +33,11 @@ class MainActivity : AppCompatActivity() {
         tableLayout = findViewById(R.id.viewpager_tabs)
         recycler_view = findViewById(R.id.recycler_view)
         searchText = findViewById(R.id.searchText)
+        fab = findViewById(R.id.fab)
 
+
+        //clicking on fab floating icon
+        fab.setOnClickListener { showBottomSheetDialog() }
 
         //implemented addTextChangedListener to the search text to do automatic search from the Recycleview data when user type anything
 
@@ -57,36 +65,36 @@ class MainActivity : AppCompatActivity() {
             Item(R.drawable.image1, "Label 1"),
             Item(R.drawable.image2, "Label 2"),
             Item(R.drawable.image3, "Label 3"),
-            Item(R.drawable.image3, "Item 1"),
-            Item(R.drawable.image3, "Item 2"),
+            Item(R.drawable.image1, "Item 1"),
+            Item(R.drawable.image2, "Item 2"),
             Item(R.drawable.image3, "Item 3"),
-            Item(R.drawable.image3, "Data 1"),
-            Item(R.drawable.image3, "Data 2"),
+            Item(R.drawable.image1, "Data 1"),
+            Item(R.drawable.image2, "Data 2"),
             Item(R.drawable.image3, "Data 3")
             // Add more items as needed
         )
         val itemsList1 = arrayListOf(
-            Item(R.drawable.image1, "Label 4"),
-            Item(R.drawable.image2, "Label 5"),
-            Item(R.drawable.image3, "Label 6"),
+            Item(R.drawable.image3, "Label 4"),
+            Item(R.drawable.image1, "Label 5"),
+            Item(R.drawable.image2, "Label 6"),
             Item(R.drawable.image3, "Item 4"),
-            Item(R.drawable.image3, "Item 5"),
-            Item(R.drawable.image3, "Item 6"),
+            Item(R.drawable.image1, "Item 5"),
+            Item(R.drawable.image2, "Item 6"),
             Item(R.drawable.image3, "Data 4"),
-            Item(R.drawable.image3, "Data 5"),
+            Item(R.drawable.image1, "Data 5"),
             Item(R.drawable.image3, "Data 6")
             // Add more items as needed
         )
         val itemsList2 = arrayListOf(
             Item(R.drawable.image1, "Label 7"),
-            Item(R.drawable.image2, "Label 8"),
-            Item(R.drawable.image3, "Label 9"),
-            Item(R.drawable.image3, "Item 7"),
+            Item(R.drawable.image3, "Label 8"),
+            Item(R.drawable.image2, "Label 9"),
+            Item(R.drawable.image1, "Item 7"),
             Item(R.drawable.image3, "Item 8"),
-            Item(R.drawable.image3, "Item 9"),
-            Item(R.drawable.image3, "Data 7"),
+            Item(R.drawable.image2, "Item 9"),
+            Item(R.drawable.image1, "Data 7"),
             Item(R.drawable.image3, "Data 8"),
-            Item(R.drawable.image3, "Data 9")
+            Item(R.drawable.image2, "Data 9")
             // Add more items as needed
         )
 
@@ -151,5 +159,35 @@ class MainActivity : AppCompatActivity() {
         val listAdapter = ItemAdapter(searchArray)
         recycler_view.adapter = listAdapter
 
+    }
+
+    private fun showBottomSheetDialog() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
+
+        val item_count = bottomSheetView.findViewById<TextView>(/* id = */ R.id.item_count);
+        val char_stats = bottomSheetView.findViewById<TextView>(/* id = */ R.id.char_stats);
+
+        val itemList = listOf("apple", "banana", "orange", "blueberry")
+        val itemCount = itemList.size
+        item_count.text = "Item Count: $itemCount"
+
+        val charStats = getCharacterStatistics(itemList)
+        char_stats.text = charStats
+
+        bottomSheetDialog.show()
+    }
+
+    private fun getCharacterStatistics(itemList: List<String>): String {
+        val charCount = mutableMapOf<Char, Int>()
+        itemList.forEach { item ->
+            item.forEach { char ->
+                charCount[char] = charCount.getOrDefault(char, 0) + 1
+            }
+        }
+
+        val sortedCharCount = charCount.entries.sortedByDescending { it.value }.take(3)
+        return sortedCharCount.joinToString(separator = "\n") { "${it.key} = ${it.value}" }
     }
 }

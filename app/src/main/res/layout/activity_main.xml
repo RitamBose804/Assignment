@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white">
+    android:background="@color/Color_Background">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <!-- Add your image carousel items here -->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpager_images"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp">
 
-            </androidx.viewpager2.widget.ViewPager2>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewpager_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+            </androidx.cardview.widget.CardView>
+
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/viewpager_tabs"
@@ -30,47 +43,60 @@
                 app:tabIndicatorColor="@color/white"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="0dp"
-                android:background="@color/white"
+                android:background="@color/Color_Background"
                 />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/SearchBar_Background"
-            android:padding="10dp"
-            android:layout_marginTop="10dp">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/searchbar_background"
-                android:gravity="center">
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                android:background="@color/SearchBar_Background"
+                app:cardBackgroundColor="@color/SearchBar_Background">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@android:drawable/ic_search_category_default"/>
-                <EditText
-                    android:id="@+id/searchText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/search"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:background="@null"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_search_category_default"/>
+                    <EditText
+                        android:id="@+id/searchText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/search"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:background="@null"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Your RecyclerView for the list of items -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17.5dp"
+                />
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- Your RecyclerView for the list of items -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        android:backgroundTint="@color/Selected_Indicator_Background"/>
 
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

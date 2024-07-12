@@ -2,5 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="SearchBar_Background">#c9c9ce</color>
+    <color name="SearchBar_Background">#e5ebea</color>
+    <color name="Color_Background">#f4fbf8</color>
+    <color name="ListItem_Background">#cde8e1</color>
+    <color name="UnSelected_Indicator_Background">#a8adab</color>
+    <color name="Selected_Indicator_Background">#1792f3</color>
 </resources>
